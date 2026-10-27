@@ -1,0 +1,6 @@
+{
+  "url": "http://127.0.0.1:11434",
+  "model": "qwen3:4b",
+  "timeout_seconds": 1800,
+  "num_thread": 6
+}

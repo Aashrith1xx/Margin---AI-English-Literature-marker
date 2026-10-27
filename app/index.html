@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Margin</title>
+  <style>
+    * { box-sizing: border-box }
+    body { margin: 0; background: white; color: #222; font: 16px/1.5 Arial, sans-serif }
+    main { max-width: 850px; margin: 32px auto; padding: 0 20px 50px }
+    header { display: flex; gap: 24px; align-items: baseline; margin-bottom: 28px }
+    h1 { font-size: 20px; font-weight: normal; margin: 0 }
+    nav { display: flex; gap: 16px; flex-wrap: wrap }
+    button { font: inherit; color: inherit; cursor: pointer }
+    nav button { background: none; border: 0; padding: 0 }
+    nav button.active { text-decoration: underline; text-underline-offset: 4px }
+    button:disabled { cursor: default; opacity: .5 }
+    button:focus-visible, summary:focus-visible { outline: 2px solid #555; outline-offset: 4px }
+    label { display: block; margin-bottom: 18px }
+    input, select, textarea { font: inherit; width: 100%; border: 1px solid #aaa; border-radius: 2px; padding: 9px; background: white; color: inherit; margin-top: 5px }
+    input:focus, select:focus, textarea:focus { outline: 1px solid #555; outline-offset: 1px }
+    textarea { display: block; resize: vertical; min-height: 90px }
+    #response { min-height: 270px }
+    #response[aria-invalid="true"] { border-color: #a32e2e }
+    .small, .notice, .context { font-size: 13px; color: #666 }
+    #response-count { margin: -10px 0 16px }
+    details { margin: 18px 0 }
+    summary { cursor: pointer; width: fit-content }
+    .options { margin-top: 18px; display: grid; grid-template-columns: 1fr 1fr; gap: 0 16px }
+    .wide { grid-column: 1 / -1 }
+    .button { border: 1px solid #999; border-radius: 2px; padding: 7px 18px; background: #f5f5f5 }
+    .button:hover:not(:disabled) { background: #eaeaea }
+    #model-status { margin: 14px 0; font-size: 13px; color: #666 }
+    #out { border: 1px solid #aaa; padding: 18px; margin-top: 24px; overflow-wrap: anywhere; min-height: 150px }
+    #out h2 { margin: 0 0 14px; font-size: 17px; font-weight: normal }
+    #out h3 { font-size: 15px; font-weight: bold; margin: 24px 0 6px }
+    #out p { margin: 6px 0 14px; white-space: pre-wrap }
+    #out blockquote { margin: 8px 0 16px; padding-left: 14px; border-left: 2px solid #ccc; white-space: pre-wrap }
+    #out pre { white-space: pre-wrap; font: inherit }
+    .archive-item { display: block; width: 100%; text-align: left; border: 0; border-bottom: 1px solid #ddd; background: white; padding: 14px 0 }
+    .archive-item:hover { background: #fafafa }
+    .archive-item strong, .archive-item span { display: block; font-weight: normal }
+    .archive-item span { font-size: 13px; color: #666 }
+    @media (max-width: 520px) {
+      main { margin-top: 20px; padding: 0 14px 30px }
+      header { display: block }
+      nav { margin-top: 14px }
+      .options { grid-template-columns: 1fr }
+    }
+  </style>
+</head>
+<body>
+  <main id="workspace">
+    <header>
+      <h1>Margin</h1>
+      <nav aria-label="Pages">
+        <button class="chip active" data-view="new" aria-current="page">mark</button>
+        <button class="chip" data-view="saved">saved work</button>
+        <button class="chip" data-view="library">library</button>
+      </nav>
+    </header>
+    <label for="question">question
+      <textarea id="question"></textarea>
+    </label>
+    <label for="response">answer
+      <textarea id="response" aria-describedby="response-count"></textarea>
+    </label>
+    <p class="small" id="response-count" role="status" aria-live="polite">0 of 1000 words</p>
+    <details>
+      <summary>other details</summary>
+      <div class="options">
+        <label for="year">year
+          <select id="year"><option>2026</option><option>2027</option></select>
+        </label>
+        <label for="component">component
+          <input id="component" placeholder="12">
+        </label>
+        <label for="work">work
+          <input id="work">
+        </label>
+        <label for="question_type">question type
+          <select id="question_type">
+            <option value="essay">essay</option>
+            <option value="passage-based">passage based</option>
+            <option value="unseen poetry">unseen poetry</option>
+            <option value="unseen prose">unseen prose</option>
+            <option value="open-text drama">open text drama</option>
+          </select>
+        </label>
+        <label class="wide" for="passage">passage
+          <textarea id="passage"></textarea>
+        </label>
+      </div>
+    </details>
+    <button class="button" id="mark">mark answer</button>
+    <div id="model-status"><span>checking model</span></div>
+    <p class="notice">AI feedback is provisional</p>
+    <section id="out" aria-live="polite">
+      <h2>output</h2>
+      <p class="small">your marking will appear here</p>
+    </section>
+  </main>
+  <script src="/app.js"></script>
+</body>
+</html>
